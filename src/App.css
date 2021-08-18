@@ -1,38 +1,69 @@
-.App {
+.Weather {
+  font-family: "Josefin Sans", sans-serif;
+  max-width: 538px;
+  display: block;
+  margin: 0 auto;
+  margin-top: 25px;
+  border: 1px solid black;
+  background: linear-gradient(#87a8d0, #98ccd3, #b9ceeb, #dddddd);
+  border-radius: 6px;
+}
+
+.TodayDate {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1 {
+  text-align: center;
+  margin-bottom: 10px;
+  margin-top: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.units {
+  position: relative;
+  top: -35px;
+  left: 5px;
+  font-size: 12px;
+  margin: 0;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+h2 {
+  text-align: center;
 }
 
-.App-link {
-  color: #61dafb;
+.main {
+  text-align: center;
+  font-size: 70px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.big-icon {
+  position: relative;
+  top: -2px;
+}
+
+.fahrenheit-link .celsius-link {
+  text-decoration: none;
+}
+
+.weather-conditions {
+  text-align: center;
+  font-size: 16px;
+  margin: 10px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.units .active:hover {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+.search-form {
+  margin-top: 50px;
+  text-align: center;
 }
