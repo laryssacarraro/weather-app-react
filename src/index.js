@@ -4,6 +4,7 @@ import "./App.css";
 import Weather from "./Weather";
 
 function App() {
+  alert("Please, type a city...");
   return (
     <div className="App">
       <Weather />
