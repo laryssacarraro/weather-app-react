@@ -67,3 +67,8 @@ li {
   margin-top: 50px;
   text-align: center;
 }
+
+.App .git-link {
+  font-size: 12px;
+  text-align: center;
+}
