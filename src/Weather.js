@@ -1,25 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+
 
 export default function Weather() {
-  let weatherData = {
-    city: "New York",
-    temperature: 28,
-    date: "Monday,July 26 06:52 PM",
-    imgUrl: "https://ssl.gstatic.com/onebox/weather/64/sunny.png",
-    description: "Sunny",
-    windSpeed: 5,
-    humidity: 78
-  };
+    const [forecast, setForecast] = useState({});
+    const [city, setCity] = useState("");
 
-  return (
-    <div className="Weather">
-      <form className="search-form">
+    function displayForecast(response) {
+    
+    setForecast({
+    temperature: Math.round(response.data.main.temp),
+    icon: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
+    description: response.data.weather[0].description,
+    humidity: response.data.main.humidity,
+    wind: Math.round(response.data.wind.speed)
+  });
+}
+
+  function handleSubmit(event) {
+      event.preventDefault();
+      let apiKey = `ca96a46b83f0206010d93234cc8d803f`;
+      let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+      axios.get(apiUrl).then(displayForecast);
+
+  }
+
+
+  function updateCity(event) {
+    setCity(event.target.value);
+
+  }
+  
+
+  let weatherApp = <div className="Weather">
+      <form className="search-form" onSubmit={handleSubmit}>
         <input
-          type="text"
+          type="Search"
           placeholder="Search for city..."
-          autofocus="on"
-          autocomplete="off"
-          id="search-text-input"
+          autoFocus="on"
+          autoComplete="off"
+          onChange = {updateCity}
         />
 
         <button>🔎</button>
@@ -27,19 +48,20 @@ export default function Weather() {
         <button>📍</button>
       </form>
 
-      <p className="TodayDate">{weatherData.date}</p>
+      <p className="TodayDate"></p>
 
-      <h1>{weatherData.city}</h1>
+      <h1 Text style={{ textTransform: 'capitalize'}}>{city}</h1>
+          
 
       <h2>
         <span className="main">
           <img
-            src={weatherData.imgUrl}
-            alt={weatherData.description}
+            src={forecast.icon}
+            alt={forecast.description}
             width="100"
             className="big-icon"
           />
-          <span>{weatherData.temperature}°C</span>
+          <span>{forecast.temperature}°C</span>
         </span>
         <span className="units">
           <a href="/">°C</a> |<a href="/">°F</a>
@@ -49,13 +71,22 @@ export default function Weather() {
       <div className="weather-conditions">
         <ul>
           <li>
-            Weather description: {weatherData.description}
+            Weather description: {forecast.description}
             <span></span>
           </li>
-          <li>Wind speed: {weatherData.windSpeed} Mph</li>
-          <li>Humidity: {weatherData.humidity}%</li>
+          <li>Wind speed: {forecast.wind} Mph</li>
+          <li>Humidity: {forecast.humidity}%</li>
         </ul>
       </div>
-    </div>
-  );
-}
+    </div>;
+
+return weatherApp;
+
+  } 
+  
+
+
+
+  
+
+  
