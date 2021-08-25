@@ -1,46 +1,33 @@
 import React, { useState } from "react";
 import axios from "axios";
+import FormattedDate from "./FormattedDate";
 
 
-export default function Weather() {
-    const [forecast, setForecast] = useState({});
-    const [city, setCity] = useState("");
+export default function Weather(props) {
+    const [forecastData, setForecastData] = useState({ loaded: false });
 
     function displayForecast(response) {
-    
-    setForecast({
+    setForecastData({
+    loaded: true,  
     temperature: Math.round(response.data.main.temp),
+    date: new Date(response.data.dt * 1000),
     icon: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
     description: response.data.weather[0].description,
     humidity: response.data.main.humidity,
-    wind: Math.round(response.data.wind.speed)
+    wind: Math.round(response.data.wind.speed),
+    city: response.data.name
   });
 }
 
-  function handleSubmit(event) {
-      event.preventDefault();
-      let apiKey = `ca96a46b83f0206010d93234cc8d803f`;
-      let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
-      axios.get(apiUrl).then(displayForecast);
-
-  }
-
-
-  function updateCity(event) {
-    setCity(event.target.value);
-
-  }
-  
-
-  let weatherApp = <div className="Weather">
-      <form className="search-form" onSubmit={handleSubmit}>
+  if(forecastData.loaded) {
+  return ( <div className="Weather">
+      <form className="search-form">
         <input
           type="Search"
           placeholder="Search for city..."
           autoFocus="on"
           autoComplete="off"
-          onChange = {updateCity}
         />
 
         <button>🔎</button>
@@ -48,20 +35,20 @@ export default function Weather() {
         <button>📍</button>
       </form>
 
-      <p className="TodayDate"></p>
+      <p className="TodayDate"><FormattedDate date={forecastData.date}/></p>
 
-      <h1 Text style={{ textTransform: 'capitalize'}}>{city}</h1>
+      <h1 text style={{ textTransform: 'capitalize'}}>{forecastData.city}</h1>
           
 
       <h2>
         <span className="main">
           <img
-            src={forecast.icon}
-            alt={forecast.description}
+            src={forecastData.icon}
+            alt={forecastData.description}
             width="100"
             className="big-icon"
           />
-          <span>{forecast.temperature}°C</span>
+          <span>{forecastData.temperature}°C</span>
         </span>
         <span className="units">
           <a href="/">°C</a> |<a href="/">°F</a>
@@ -71,20 +58,26 @@ export default function Weather() {
       <div className="weather-conditions">
         <ul>
           <li>
-            Weather description: {forecast.description}
+            Weather description: {forecastData.description}
             <span></span>
           </li>
-          <li>Wind speed: {forecast.wind} Mph</li>
-          <li>Humidity: {forecast.humidity}%</li>
+          <li>Wind speed: {forecastData.wind} Mph</li>
+          <li>Humidity: {forecastData.humidity}%</li>
         </ul>
       </div>
-    </div>;
+    </div>
+  )
+  } else {
+      let apiKey = `731c20f1bf00de5ac218895a9bc3e5e3`;
+      let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${props.defaultCity}&appid=${apiKey}&units=metric`;
+      axios.get(apiUrl).then(displayForecast);
 
-return weatherApp;
+      return "Loading...";
+  }
 
   } 
   
-
+ 
 
 
   
