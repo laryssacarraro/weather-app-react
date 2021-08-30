@@ -31,24 +31,21 @@ h2 {
   text-align: center;
 }
 
-.main {
-  text-align: center;
-  font-size: 70px;
-}
-
 .big-icon {
   position: relative;
-  top: -2px;
+  top: -15px;
 }
 
-.fahrenheit-link .celsius-link {
-  text-decoration: none;
+.weatherTemperature {
+  text-align: center;
+  font-size: 70px;
 }
 
 .weather-conditions {
   text-align: center;
   font-size: 16px;
   margin: 10px;
+  margin-top: -15px;
 }
 
 a {
