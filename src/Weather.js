@@ -3,6 +3,7 @@ import axios from "axios";
 import WeatherInfo from "./WeatherInfo";
 
 
+
 export default function Weather(props) {
     const [forecastData, setForecastData] = useState({ loaded: false });
     const [city, setCity] = useState(props.defaultCity);
@@ -10,6 +11,7 @@ export default function Weather(props) {
     function displayForecast(response) {
     setForecastData({
     loaded: true,  
+    coordinates: response.data.coord,
     temperature: Math.round(response.data.main.temp),
     date: new Date(response.data.dt * 1000),
     icon: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
@@ -46,12 +48,10 @@ function updateCity(event) {
           autoComplete="off"
           onChange={updateCity}
         />
-
         <button>🔎</button>
-
         <button>📍</button>
       </form>
-      <WeatherInfo data={forecastData}/>
+      <WeatherInfo data={forecastData} coordinates = {forecastData.coordinates}/>
     </div>
   )
   } else {
