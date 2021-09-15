@@ -11,6 +11,7 @@
 
 .TodayDate {
   text-align: center;
+  font-size: 14px;
 }
 
 h1 {
@@ -39,6 +40,10 @@ h2 {
 .weatherTemperature {
   text-align: center;
   font-size: 70px;
+}
+
+.weatherForecast-temperature-min {
+  color: #70757a;
 }
 
 .weather-conditions {
