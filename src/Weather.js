@@ -49,7 +49,6 @@ function updateCity(event) {
           onChange={updateCity}
         />
         <button>🔎</button>
-        <button>📍</button>
       </form>
       <WeatherInfo data={forecastData} coordinates = {forecastData.coordinates}/>
     </div>
